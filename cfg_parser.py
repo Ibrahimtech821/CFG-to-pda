@@ -67,7 +67,7 @@ def parse_cfg(lines):
             alt = alt.strip()
 
             # epsilon
-            if alt == EPSILON or alt == "":
+            if alt == EPSILON or alt == "e" or alt == "":
                 productions[left].append([EPSILON])
 
             else:
