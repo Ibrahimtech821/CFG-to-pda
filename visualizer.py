@@ -43,8 +43,12 @@ def visualize_pda(pda, output_file="pda_visualization"):
     for t in pda.transitions:
         u = mapping[t['from']]
         v = mapping[t['to']]
-        push_str = "".join(t['push']) if isinstance(t['push'], list) else str(t['push'])
-        label = f"{t['input'] or EPSILON}, {t['pop'] or EPSILON}, {push_str or EPSILON}"
+        if t['push'] == [EPSILON]:
+            push_str = EPSILON
+        else:
+            push_str = "".join(t['push'])
+
+        label = f"{t['input']}, {t['pop']} → {push_str}"
         edge_labels.setdefault((u, v), []).append(label)
     for (u, v), labels in edge_labels.items():
         combined_label = "\n".join(labels)
