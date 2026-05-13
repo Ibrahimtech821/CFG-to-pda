@@ -1,32 +1,41 @@
-from cfg_parser import parse_cfg, print_cfg  # Import the print function for CFG
+import sys
+from cfg_parser import parse_cfg, print_cfg
 from pda_converter import convert_cfg_to_pda
 from visualizer import visualize_pda
 
 def main():
     grammar_lines = [
-        "S -> aSb | ε"
+        "S -> aSb | A"
     ]
-    
-    print("="*30)
-    print("STEP 1: PARSING CFG")
-    print("="*30)
+    cfg_input = "\n".join(grammar_lines)
+
+    # --- STEP 1: cfg_parser.py ---
+    print("=" * 30, flush=True)
+    print("RUNNING cfg_parser.py", flush=True)
+    print("=" * 30, flush=True)
     cfg = parse_cfg(grammar_lines)
-    print_cfg(cfg)  # This shows the start symbol, terminals, etc.
+    print_cfg(cfg) # This calls the print logic inside your parser file
+    sys.stdout.flush() # Forces Ubuntu to show the text NOW
 
-    print("\n" + "="*30)
-    print("STEP 2: CONVERTING TO PDA")
-    print("="*30)
+    # --- STEP 2: pda_converter.py ---
+    print("\n" + "=" * 30, flush=True)
+    print("RUNNING pda_converter.py", flush=True)
+    print("=" * 30, flush=True)
     pda = convert_cfg_to_pda(cfg)
-    pda.display_pda()  # This prints the d(q_loop...) transitions
+    pda.display_pda() # This calls the print logic inside your converter file
+    sys.stdout.flush()
 
-    print("\n" + "="*30)
-    print("STEP 3: GENERATING VISUALIZATION")
-    print("="*30)
-    print("Generating window... (Close the window to finish)")
+    # --- STEP 3: visualizer.py ---
+    print("\n" + "=" * 30, flush=True)
+    print("RUNNING visualizer.py", flush=True)
+    print("=" * 30, flush=True)
+    print("Generating window... (Close the window to finish)", flush=True)
+    sys.stdout.flush()
     
-    visualize_pda(pda, r"PDA for $S \rightarrow aSb \mid \epsilon$")
+    # This opens the GUI window
+    visualize_pda(cfg_input)
     
-    print("\nDone! Check 'pda_visualization.png' for the saved file.")
+    print("\nDone! All steps completed.", flush=True)
 
 if __name__ == "__main__":
     main()
