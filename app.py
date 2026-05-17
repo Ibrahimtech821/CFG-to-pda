@@ -17,12 +17,17 @@ grammar_text = st.text_area(
 
 if st.button("Convert to PDA"):
     try:
-        grammar_lines = grammar_text.splitlines()
+        # split rules by lines and ignore empty lines
+        grammar_lines = [
+            line.strip()
+            for line in grammar_text.splitlines()
+            if line.strip() != ""
+        ]
 
         cfg = parse_cfg(grammar_lines)
         pda = convert_cfg_to_pda(cfg)
 
-        visualize_pda(pda, "pda_result")
+        visualize_pda(pda, "pda_graph")
 
         st.image("pda_graph.png", caption="Generated PDA")
 

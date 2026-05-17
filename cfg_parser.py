@@ -117,8 +117,9 @@ def print_cfg(cfg):
 if __name__ == "__main__":
 
     grammar_lines = [
-        "S -> aSb | ε",
-        "A -> aA | b"
+        "S -> aSb | T",
+        "A -> aA | b",
+        "T-> nTs|S"
     ]
 
     cfg = parse_cfg(grammar_lines)
